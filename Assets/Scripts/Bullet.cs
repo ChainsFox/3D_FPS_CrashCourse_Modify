@@ -4,15 +4,18 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnCollisionEnter(Collision collision)
     {
-        
-    }
+        if (collision.gameObject.CompareTag("Target"))
+        {
+            print("hit " + collision.gameObject.name + "!");
+            Destroy(gameObject);
+        }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+            print("hit a wall!");
+            Destroy(gameObject);
+        }
     }
 }
