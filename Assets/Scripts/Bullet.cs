@@ -19,6 +19,14 @@ public class Bullet : MonoBehaviour
             createBulletImpactEffect(objectWeHit);
             Destroy(gameObject);
         }
+
+        if (objectWeHit.gameObject.CompareTag("BreakableObject"))
+        {
+            print("hit a breakable object!");
+            objectWeHit.gameObject.GetComponent<BreakableObject>().Shatter2();
+        }
+
+
     }
 
     void createBulletImpactEffect(Collision objectWeHit)
