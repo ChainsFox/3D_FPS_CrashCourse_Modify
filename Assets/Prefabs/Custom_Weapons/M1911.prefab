@@ -217,7 +217,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffaec72409fab634581674ff390adaf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 0}
   isShooting: 0
   readyToShoot: 0
   shootingDelay: 0.5
@@ -229,6 +228,7 @@ MonoBehaviour:
   bulletSpawn: {fileID: 0}
   bulletVelocity: 500
   bulletPrefabLifeTime: 3
+  muzzleEffect: {fileID: 0}
   currentShootingMode: 0
 --- !u!1 &5151541873239172269
 GameObject:

@@ -2,13 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BreakableObject_Destroy : MonoBehaviour
+public class BreakableObjectDestroy : MonoBehaviour
 {
     void Start()
     {
-        Destroy(gameObject,5);
+        Destroy(gameObject, 5f);
     }
-
-
-    
 }
