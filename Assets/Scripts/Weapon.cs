@@ -41,6 +41,16 @@ public class Weapon : MonoBehaviour
         Auto
     }
 
+    public enum WeaponModel
+    {
+        M1911,
+        M4  
+    }
+
+    public WeaponModel thisWeaponModel;
+
+
+
     public ShootingMode currentShootingMode;
 
     private void Awake()
@@ -105,7 +115,8 @@ public class Weapon : MonoBehaviour
 
         muzzleEffect.GetComponent<ParticleSystem>().Play();
         animator.SetTrigger("RECOIL");
-        SoundManager.Instance.shootingSound_M1911.Play();
+        //SoundManager.Instance.shootingSound_M1911.Play();
+        SoundManager.Instance.PlayShootingSound(thisWeaponModel);
 
         readyToShoot = false; //cant spam shoot if the first shot was not finished
 
@@ -136,7 +147,10 @@ public class Weapon : MonoBehaviour
 
     private void Reload()
     {
-        SoundManager.Instance.reloadSound_M1911.Play();
+        //SoundManager.Instance.reloadSound_M1911.Play();
+        SoundManager.Instance.PlayReloadSound(thisWeaponModel);
+
+        animator.SetTrigger("RELOAD");
         isReloading = true;
         Invoke("ReloadCompleted", reloadTime);
     }
