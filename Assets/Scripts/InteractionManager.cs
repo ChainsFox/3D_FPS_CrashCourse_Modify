@@ -23,7 +23,7 @@ public class InteractionManager : MonoBehaviour
 
     private void Update()
     {
-        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0f));
+        Ray ray = Camera.main.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
         RaycastHit hit; //create a ray cast from the main camera to see if it hit a weapon
 
         if (Physics.Raycast(ray, out hit))
@@ -34,6 +34,11 @@ public class InteractionManager : MonoBehaviour
             {
                 hoveredWeapon = objectHitByRayCast.gameObject.GetComponent<Weapon>();
                 hoveredWeapon.GetComponent<Outline>().enabled = true;
+
+                if (Input.GetKeyDown(KeyCode.F))
+                {
+                    WeaponManager.Instance.PickupWeapon(objectHitByRayCast.gameObject); 
+                }
             }
             else
             {
