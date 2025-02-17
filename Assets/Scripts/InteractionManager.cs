@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 using UnityEngine.UIElements.Experimental;
 
 public class InteractionManager : MonoBehaviour
@@ -30,7 +31,7 @@ public class InteractionManager : MonoBehaviour
         {
             GameObject objectHitByRayCast = hit.transform.gameObject;
 
-            if (objectHitByRayCast.GetComponent<Weapon>())
+            if (objectHitByRayCast.GetComponent<Weapon>() && objectHitByRayCast.GetComponent<Weapon>().isActiveWeapon == false)
             {
                 hoveredWeapon = objectHitByRayCast.gameObject.GetComponent<Weapon>();
                 hoveredWeapon.GetComponent<Outline>().enabled = true;

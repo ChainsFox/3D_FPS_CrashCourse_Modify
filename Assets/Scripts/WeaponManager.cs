@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -43,6 +44,15 @@ public class WeaponManager : MonoBehaviour
                 weaponSlot.SetActive(false);
             }
         }
+
+        if(Input.GetKeyDown(KeyCode.Alpha1)) //alpha1 = number 1 key
+        {
+            SwitchActiveSlot(0);
+        }
+        if (Input.GetKeyDown(KeyCode.Alpha2))
+        {
+            SwitchActiveSlot(1);
+        }
     }
 
     public void PickupWeapon(GameObject pickedupWeapon) //a dedicated method that is going to equip the weapon into the active weapon slot
@@ -52,6 +62,8 @@ public class WeaponManager : MonoBehaviour
 
     public void AddWeaponIntoActiveSlot(GameObject pickedupWeapon)
     {
+        DropCurrentWeapon(pickedupWeapon);
+
         pickedupWeapon.transform.SetParent(activeWeaponSlot.transform, false); //take this weapon transform, and set its parent to be the active weapon slot, active weapon slot always get updated
 
         Weapon weapon = pickedupWeapon.GetComponent<Weapon>(); //grab the Weapon script from this weapon, 
@@ -61,4 +73,38 @@ public class WeaponManager : MonoBehaviour
 
         weapon.isActiveWeapon = true;
     }
+
+    private void DropCurrentWeapon(GameObject pickedupWeapon)
+    {
+        if(activeWeaponSlot.transform.childCount > 0) //check if the active weapon slot already has something inside of it
+        {
+            var weaponToDrop = activeWeaponSlot.transform.GetChild(0).gameObject; //get the weapon that we are using and saving it in this variable
+
+            weaponToDrop.GetComponent<Weapon>().isActiveWeapon = false; //disable it from being the active weapon
+
+            weaponToDrop.transform.SetParent(pickedupWeapon.transform.parent); //set parent of the new weapon that we pick up to be the same parent of the old weapon 
+            weaponToDrop.transform.localPosition = pickedupWeapon.transform.localPosition; //also set the same position/rotation = to the old weapon
+            weaponToDrop.transform.localRotation = pickedupWeapon.transform.localRotation; //=> basically we are switching values between the 2
+        }
+    }
+
+    public void SwitchActiveSlot(int slotNumber) //this function will receive a number to switch between weapon slot
+    {
+        if(activeWeaponSlot.transform.childCount > 0)
+        {
+            Weapon currentWeapon = activeWeaponSlot.transform.GetChild(0).GetComponent<Weapon>();
+            currentWeapon.isActiveWeapon = false;
+        }
+
+        activeWeaponSlot = weaponSlots[slotNumber];
+
+        if(activeWeaponSlot.transform.childCount > 0)
+        {
+            Weapon newWeapon = activeWeaponSlot.transform.GetChild(0).GetComponent<Weapon>();
+            newWeapon.isActiveWeapon = true;
+        }
+
+    }
+
+
 }
