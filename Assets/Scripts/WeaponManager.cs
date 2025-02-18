@@ -72,6 +72,7 @@ public class WeaponManager : MonoBehaviour
         pickedupWeapon.transform.localRotation = Quaternion.Euler(weapon.spawnRotation.x, weapon.spawnRotation.y, weapon.spawnRotation.z); //that we have set in the editor
 
         weapon.isActiveWeapon = true;
+        weapon.animator.enabled = true;
     }
 
     private void DropCurrentWeapon(GameObject pickedupWeapon)
@@ -81,6 +82,7 @@ public class WeaponManager : MonoBehaviour
             var weaponToDrop = activeWeaponSlot.transform.GetChild(0).gameObject; //get the weapon that we are using and saving it in this variable
 
             weaponToDrop.GetComponent<Weapon>().isActiveWeapon = false; //disable it from being the active weapon
+            weaponToDrop.GetComponent<Weapon>().animator.enabled = false;
 
             weaponToDrop.transform.SetParent(pickedupWeapon.transform.parent); //set parent of the new weapon that we pick up to be the same parent of the old weapon 
             weaponToDrop.transform.localPosition = pickedupWeapon.transform.localPosition; //also set the same position/rotation = to the old weapon

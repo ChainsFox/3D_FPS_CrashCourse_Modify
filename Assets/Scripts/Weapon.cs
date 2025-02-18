@@ -28,7 +28,7 @@ public class Weapon : MonoBehaviour
 
     //Effect
     public GameObject muzzleEffect;
-    private Animator animator;
+    internal Animator animator; //"internal" means that it can be access by other script but not in the editor/inspector
 
     //Reload
     public float reloadTime;
@@ -74,6 +74,8 @@ public class Weapon : MonoBehaviour
     {
         if (isActiveWeapon)
         {
+            GetComponent<Outline>().enabled = false;
+
             if (bulletsLeft == 0 && isShooting) //when try to shoot but no ammo
             {
                 SoundManager.Instance.emptyMagazineSound_M1911.Play();
