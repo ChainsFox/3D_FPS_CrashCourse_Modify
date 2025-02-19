@@ -109,13 +109,13 @@ public class Weapon : MonoBehaviour
                 Reload();
             }
 
-            //ammo UI update
-            if (AmmoManager.Instance.ammoDisplay != null)
-            {
-                //show the amount of bullets left and the bullets inside magazine - We also dividing with bulletsPerBurst because some weapon might have it
-                //That also means even if any weapon doesn't fire in burst the burst variable would still need to be 1 because we don't want to divide with 0
-                AmmoManager.Instance.ammoDisplay.text = $"{bulletsLeft / bulletsPerBurst}/{magazineSize / bulletsPerBurst}";
-            }
+            //ammo UI update(old - replace in p11)
+            //if (HUBManager.Instance.ammoDisplay != null)
+            //{
+            //    //show the amount of bullets left and the bullets inside magazine - We also dividing with bulletsPerBurst because some weapon might have it
+            //    //That also means even if any weapon doesn't fire in burst the burst variable would still need to be 1 because we don't want to divide with 0
+            //    HUBManager.Instance.ammoDisplay.text = $"{bulletsLeft / bulletsPerBurst}/{magazineSize / bulletsPerBurst}";
+            //}
 
         }
 

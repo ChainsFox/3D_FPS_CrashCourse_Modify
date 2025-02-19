@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7504031689530644114}
   - component: {fileID: 7977370164335104286}
   - component: {fileID: 8304699269599863808}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MuzzleAddNarrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4920,7 +4920,7 @@ GameObject:
   - component: {fileID: 8744685323719064377}
   - component: {fileID: 419589852051772797}
   - component: {fileID: 8176495430000231200}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M1911_MuzzleFlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9822,7 +9822,7 @@ GameObject:
   - component: {fileID: 3019502277053670747}
   - component: {fileID: 1722756130469343427}
   - component: {fileID: 2728924656076378585}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Sight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9903,7 +9903,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6097882812127541776}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BulletSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9941,7 +9941,7 @@ GameObject:
   - component: {fileID: 4153086048407578385}
   - component: {fileID: 2101954134202840331}
   - component: {fileID: 5327044474343442386}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M4
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10123,7 +10123,7 @@ GameObject:
   - component: {fileID: 7560733642599650699}
   - component: {fileID: 4797271118656596881}
   - component: {fileID: 6219729361864044202}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Bolt
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10206,7 +10206,7 @@ GameObject:
   - component: {fileID: 461339994759371880}
   - component: {fileID: 2971402757465520145}
   - component: {fileID: 3247769365278203793}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15106,7 +15106,7 @@ GameObject:
   - component: {fileID: 5269591143186202598}
   - component: {fileID: 4426369933998960760}
   - component: {fileID: 815521930020702492}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Rear_Sight
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15189,7 +15189,7 @@ GameObject:
   - component: {fileID: 5777169893107780025}
   - component: {fileID: 8742143610161063854}
   - component: {fileID: 2200910311737540269}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Mag
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15272,7 +15272,7 @@ GameObject:
   - component: {fileID: 1578670269039655235}
   - component: {fileID: 4902764842564096207}
   - component: {fileID: 3131838856665689300}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1086330515389613709}
   - component: {fileID: 7672089604761913133}
   - component: {fileID: 5482273067179824687}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Slide
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 3985142010365016838}
   - component: {fileID: 947634762859756724}
   - component: {fileID: 1014627492042045019}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Hammer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -177,7 +177,7 @@ GameObject:
   - component: {fileID: 2693717020564032266}
   - component: {fileID: 8523310426952192208}
   - component: {fileID: 8179655991753916456}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: MuzzleAddNarrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5084,7 +5084,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4376504090860065674}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BulletSpawn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5118,7 +5118,7 @@ GameObject:
   - component: {fileID: 6414053102419074565}
   - component: {fileID: 2606975431278744356}
   - component: {fileID: 7246526334954398127}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Magazin
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5202,7 +5202,7 @@ GameObject:
   - component: {fileID: 3087629231519405693}
   - component: {fileID: 8940563618727189624}
   - component: {fileID: 6253026635964599474}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M1911
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5311,7 +5311,7 @@ GameObject:
   - component: {fileID: 2191458976234560799}
   - component: {fileID: 4505795362535165375}
   - component: {fileID: 4412000431107965977}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Trigger
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5394,7 +5394,7 @@ GameObject:
   - component: {fileID: 8409121876362666132}
   - component: {fileID: 4881295504686893847}
   - component: {fileID: 6148128884153811995}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M1911_MuzzleFlash
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10298,7 +10298,7 @@ GameObject:
   - component: {fileID: 2448455440520097775}
   - component: {fileID: 6033173752527587381}
   - component: {fileID: 5892936074982868701}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: M1911
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10427,7 +10427,7 @@ GameObject:
   - component: {fileID: 2251536565316104499}
   - component: {fileID: 3329297265489375954}
   - component: {fileID: 6552814888257197480}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Smoke
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15325,7 +15325,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1271115440457236686}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: CINEMA_4D_Editor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
