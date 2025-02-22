@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -6,8 +7,8 @@ using UnityEngine.UI;
 
 public class HUBManager : MonoBehaviour
 {
-    ////Singleton basic:
-    //public static HUBManager Instance { get; set; }
+    //Singleton basic:
+    public static HUBManager Instance { get; set; }
     ////UI(old - remove in p11)
     //public TextMeshProUGUI ammoDisplay; 
 
@@ -27,6 +28,8 @@ public class HUBManager : MonoBehaviour
 
     public Image tactialUI;
     public TextMeshProUGUI tacticalAmountUI;
+
+    public Sprite emptySlot;
 
 
     private void Awake()
@@ -66,8 +69,54 @@ public class HUBManager : MonoBehaviour
         {
             magazineAmmoUI.text = "";
             totalAmmoUI.text = "";
+
+            ammoTypeUI.sprite = emptySlot;
+
+            activeWeaponUI.sprite = emptySlot;
+            unActiveWeaponUI.sprite = emptySlot;
+
         }
 
 
+    }
+
+    private Sprite GetWeaponSprite(Weapon.WeaponModel model)
+    {
+        switch(model)
+        {
+            case Weapon.WeaponModel.M1911://Original code(Have been modified - remove instantiate) for better optimization: Instantiate(Resources.Load<GameObject>("Pistol1911_Weapon")).GetComponent<SpriteRenderer>().sprite; 
+                return Resources.Load<GameObject>("Pistol1911_Weapon").GetComponent<SpriteRenderer>().sprite; 
+            case Weapon.WeaponModel.M4:
+                return Resources.Load<GameObject>("M4_Weapon").GetComponent<SpriteRenderer>().sprite;//instantiate the srpite from the resource folder(inside this folder will store the srpite...)
+
+            default:
+                return null;
+        }
+    }
+
+    private Sprite GetAmmoSprite(Weapon.WeaponModel model)
+    {
+        switch (model)
+        {
+            case Weapon.WeaponModel.M1911:
+                return Resources.Load<GameObject>("Pistol_Ammo").GetComponent<SpriteRenderer>().sprite;
+            case Weapon.WeaponModel.M4:
+                return Resources.Load<GameObject>("Rifle_Ammo").GetComponent<SpriteRenderer>().sprite;
+
+            default:
+                return null;
+        }
+    }
+
+    private GameObject GetUnactiveWeapon()
+    {
+        foreach(GameObject weaponSlot in WeaponManager.Instance.weaponSlots)//loop over all of our slots
+        {
+            if(weaponSlot != WeaponManager.Instance.activeWeaponSlot)//if this weaponSlot is not the active weapon, then it is the unactive one
+            {
+                return weaponSlot;
+            }
+        }
+        return null; //this will never happen but we need to return something
     }
 }

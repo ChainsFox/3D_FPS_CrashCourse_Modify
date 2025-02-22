@@ -75,6 +75,11 @@ public class WeaponManager : MonoBehaviour
         weapon.animator.enabled = true;
     }
 
+    internal void PickupAmmo(string name)
+    {
+        print($"pick up ammo: {name}");
+    }
+
     private void DropCurrentWeapon(GameObject pickedupWeapon)
     {
         if(activeWeaponSlot.transform.childCount > 0) //check if the active weapon slot already has something inside of it
@@ -107,6 +112,5 @@ public class WeaponManager : MonoBehaviour
         }
 
     }
-
 
 }
