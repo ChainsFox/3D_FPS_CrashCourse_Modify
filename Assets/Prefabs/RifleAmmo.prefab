@@ -180,7 +180,7 @@ GameObject:
   - component: {fileID: 5074335283393111588}
   - component: {fileID: 4297834666452957891}
   m_Layer: 0
-  m_Name: AmmoBox
+  m_Name: RifleAmmo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -230,6 +230,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ee24d2ba8402e64cb1a98c60bb70aca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ammoMount: 200
+  ammoType: 0
 --- !u!114 &5074335283393111588
 MonoBehaviour:
   m_ObjectHideFlags: 0

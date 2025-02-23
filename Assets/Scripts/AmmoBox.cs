@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class AmmoBox : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    public int ammoMount = 200;
+    public AmmoType ammoType;
+
+    public enum AmmoType
+    { 
+        RifleAmmo,
+        PistolAmmo
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

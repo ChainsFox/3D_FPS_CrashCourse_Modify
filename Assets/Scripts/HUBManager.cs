@@ -52,7 +52,8 @@ public class HUBManager : MonoBehaviour
         if(activeWeapon)
         {
             magazineAmmoUI.text = $"{activeWeapon.bulletsLeft / activeWeapon.bulletsPerBurst}";
-            totalAmmoUI.text = $"{activeWeapon.magazineSize / activeWeapon.bulletsPerBurst}";
+            totalAmmoUI.text = $"{WeaponManager.Instance.CheckAmmoLeftFor(activeWeapon.thisWeaponModel)}";
+            //totalAmmoUI.text = $"{activeWeapon.magazineSize / activeWeapon.bulletsPerBurst}"; - old remove in p12
 
             Weapon.WeaponModel model = activeWeapon.thisWeaponModel; //get the active weapon model and store it in model
             ammoTypeUI.sprite = GetAmmoSprite(model);
