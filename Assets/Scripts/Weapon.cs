@@ -9,28 +9,36 @@ public class Weapon : MonoBehaviour
     public bool isActiveWeapon;
 
     //Shooting
+    [Header("Shooting")]
     public bool isShooting, readyToShoot;
     bool allowReset = true;
     public float shootingDelay = 2f;
 
     //Burst
+    [Header("Burst")]
     public int bulletsPerBurst = 3;
     public int burstBulletsLeft;
 
     //Spread
+    [Header("Spread")]
     public float spreadIntensity;
+    public float hipSpreadIntensity;
+    public float adsSpreadIntensity;
 
     //Bullet
+    [Header("Bullet")]
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
     public float bulletVelocity = 30f;
     public float bulletPrefabLifeTime = 3f;
 
     //Effect
+    [Header("Effect")]
     public GameObject muzzleEffect;
     internal Animator animator; //"internal" means that it can be access by other script but not in the editor/inspector
 
     //Reload
+    [Header("Reload")]
     public float reloadTime;
     public int magazineSize, bulletsLeft;
     public bool isReloading;
@@ -38,6 +46,8 @@ public class Weapon : MonoBehaviour
     //Weapon position and rotation
     public Vector3 spawnPosition;
     public Vector3 spawnRotation;
+
+    bool isADS;
 
 
 
@@ -67,6 +77,8 @@ public class Weapon : MonoBehaviour
         animator = GetComponent<Animator>();
 
         bulletsLeft = magazineSize;
+
+        spreadIntensity = hipSpreadIntensity;
     }
 
     // Update is called once per frame
@@ -74,6 +86,15 @@ public class Weapon : MonoBehaviour
     {
         if (isActiveWeapon)
         {
+            if(Input.GetMouseButtonDown(1))
+            {
+                EnterADS();
+            }
+            if (Input.GetMouseButtonUp(1))
+            {
+                ExitADS();
+            }
+
             GetComponent<Outline>().enabled = false;
 
             if (bulletsLeft == 0 && isShooting) //when try to shoot but no ammo
@@ -103,11 +124,12 @@ public class Weapon : MonoBehaviour
                 Reload();
             }
 
-            //if you want to automatically reload when the magazine is empty
-            if (readyToShoot && !isShooting && !isReloading && bulletsLeft <= 0)
-            {
-                Reload();
-            }
+            //if you want to automatically reload when the magazine is empty - automatic reload is bugging with the new magazine system
+            //if (readyToShoot && !isShooting && !isReloading && bulletsLeft <= 0)
+            //{
+            //    Reload();
+            //}
+
 
             //ammo UI update(old - replace in p11)
             //if (HUBManager.Instance.ammoDisplay != null)
@@ -121,13 +143,38 @@ public class Weapon : MonoBehaviour
 
     }
 
+    private void EnterADS()
+    {
+        animator.SetTrigger("enterADS");
+        isADS = true;
+        HUBManager.Instance.middledDot.SetActive(false);
+        spreadIntensity = adsSpreadIntensity;
+    }
+
+    private void ExitADS()
+    {
+        animator.SetTrigger("exitADS");
+        isADS = false;
+        HUBManager.Instance.middledDot.SetActive(true);
+        spreadIntensity = hipSpreadIntensity;
+    }
+
 
     private void FireWeapon()
     {
         bulletsLeft--;
 
         muzzleEffect.GetComponent<ParticleSystem>().Play();
-        animator.SetTrigger("RECOIL");
+
+        if(isADS)
+        {
+            animator.SetTrigger("RECOIL_ADS");
+        }
+        else
+        {
+            animator.SetTrigger("RECOIL");
+        }
+
         //SoundManager.Instance.shootingSound_M1911.Play();
         SoundManager.Instance.PlayShootingSound(thisWeaponModel);
 
@@ -211,11 +258,11 @@ public class Weapon : MonoBehaviour
 
         Vector3 direction = targetPoint - bulletSpawn.position; //calculate the direction from the target point to the bullet spawn position, 
 
-        float x = UnityEngine.Random.Range(-spreadIntensity, spreadIntensity);
+        float z = UnityEngine.Random.Range(-spreadIntensity, spreadIntensity);
         float y = UnityEngine.Random.Range(-spreadIntensity, spreadIntensity);
 
         //returning the shooting direction and spread - the purpose of this function
-        return direction + new Vector3(x, y, 0);
+        return direction + new Vector3(0, y, z);
     }
 
     private IEnumerator DestroyBulletAfterTime(GameObject bullet, float delay)

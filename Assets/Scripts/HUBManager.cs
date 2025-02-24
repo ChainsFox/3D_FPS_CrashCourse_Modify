@@ -31,6 +31,8 @@ public class HUBManager : MonoBehaviour
 
     public Sprite emptySlot;
 
+    public GameObject middledDot;
+
 
     private void Awake()
     {
