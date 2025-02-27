@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.Versioning;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,7 +24,7 @@ public class HUBManager : MonoBehaviour
     public Image unActiveWeaponUI;
 
     [Header("Throwables")]
-    public Image lethalTypeUI;
+    public Image lethalUI;
     public TextMeshProUGUI lethalAmountUI;
 
     public Image tactialUI;
@@ -122,4 +123,21 @@ public class HUBManager : MonoBehaviour
         }
         return null; //this will never happen but we need to return something
     }
+
+    internal void UpdateThrowables(Throwable.ThrowableType throwable)
+    {
+        switch(throwable)
+        {
+            case Throwable.ThrowableType.Grenade:
+                lethalAmountUI.text = $"{WeaponManager.Instance.grenades}"; //update grenade amount for ui
+                lethalUI.sprite = Resources.Load<GameObject>("Grenade").GetComponent<SpriteRenderer>().sprite; //go in the resouces folder find the grenade sprite, and set it to the ui
+                break;
+        
+        
+        }
+
+
+    }
+
+
 }

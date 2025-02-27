@@ -16,6 +16,14 @@ public class WeaponManager : MonoBehaviour
     public int totalRifleAmmo = 0;
     public int totalPistolAmmo = 0;
 
+    [Header("Throwables")]
+    public int grenades = 0;
+    public float throwForce = 10f;
+    public GameObject grenadePrefab;
+    public GameObject throwableSpawn;
+    public float forceMultiplier = 0f;
+    public float forceMultiplierLimit = 2f;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -58,6 +66,27 @@ public class WeaponManager : MonoBehaviour
         {
             SwitchActiveSlot(1);
         }
+
+        if (Input.GetKey(KeyCode.G) && grenades > 0) //hit and hold the g key -> forceMultiplier increase
+        {
+            forceMultiplier += Time.deltaTime;
+
+            if(forceMultiplier > forceMultiplierLimit)
+            {
+                forceMultiplier = forceMultiplierLimit;
+            }
+        }
+
+        if (Input.GetKeyUp(KeyCode.G))
+        {
+            if(grenades > 0)
+            {
+                ThrowLethal();
+
+            }
+            forceMultiplier = 0f;
+        }
+
     }
 
     public void PickupWeapon(GameObject pickedupWeapon) //a dedicated method that is going to equip the weapon into the active weapon slot
@@ -162,6 +191,42 @@ public class WeaponManager : MonoBehaviour
 
         }
     }
+
+    #region || throwables ||
+    public void PickupThrowable(Throwable throwable)
+    {
+        switch(throwable.throwableType)
+        {
+            case Throwable.ThrowableType.Grenade:
+                PickupGrenade();
+                break;
+
+        }
+    }
+
+    private void PickupGrenade()
+    {
+        grenades += 1;
+
+        HUBManager.Instance.UpdateThrowables(Throwable.ThrowableType.Grenade);
+    }
+
+    private void ThrowLethal()
+    {
+        GameObject lethalPrefab = grenadePrefab; //temporay solution
+
+        GameObject throwable = Instantiate(lethalPrefab, throwableSpawn.transform.position, Camera.main.transform.rotation);
+        Rigidbody rb = throwable.GetComponent<Rigidbody>();
+
+        rb.AddForce(Camera.main.transform.forward * (throwForce * forceMultiplier), ForceMode.Impulse);
+
+        throwable.GetComponent<Throwable>().hasBeenThrown = true; //start countdown for the explosion
+
+        grenades -= 1;
+        HUBManager.Instance.UpdateThrowables(Throwable.ThrowableType.Grenade);
+    }
+
+    #endregion
 
 
 }
