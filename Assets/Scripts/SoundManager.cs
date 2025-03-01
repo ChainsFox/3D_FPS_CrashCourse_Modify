@@ -17,6 +17,9 @@ public class SoundManager : MonoBehaviour
     public AudioClip M4Shot; 
     public AudioSource reloadSound_M4;
 
+    public AudioSource throwablesChannel;
+    public AudioClip grenadeSound;
+
     private void Awake()
     {
         if (Instance != null && Instance != this) //if the instance is not null and is not this one then we destroy it

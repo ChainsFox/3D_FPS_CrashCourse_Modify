@@ -16,7 +16,9 @@ public class Throwable : MonoBehaviour
 
     public enum ThrowableType
     { 
-        Grenade
+        None,
+        Grenade,
+        Smoke_Grenade
     
     }
 
@@ -55,9 +57,34 @@ public class Throwable : MonoBehaviour
         {
             case ThrowableType.Grenade:
                 GrenadeEffect();
-                break;  
+                break;
+
+            case ThrowableType.Smoke_Grenade:
+                SmokeGrenadeEffect();
+                break;
 
 
+        }
+    }
+
+    private void SmokeGrenadeEffect()
+    {
+        //Visual Effect
+        GameObject smokeEffect = GlobalReferences.Instance.smokeGrenadeEffect;//get effect in global references 
+        Instantiate(smokeEffect, transform.position, transform.rotation);
+
+        //Play sound
+        SoundManager.Instance.throwablesChannel.PlayOneShot(SoundManager.Instance.grenadeSound);
+
+        //Physical Effect
+        Collider[] colliders = Physics.OverlapSphere(transform.position, damageRadius);//create a sphere shape that detect colliders(house, wall, enemy...), the size of the sphere is "damageRadis"
+        foreach (Collider objectInRange in colliders)//loop over all coliders and apply effect...
+        {
+            Rigidbody rb = objectInRange.GetComponent<Rigidbody>();//get the rigidbody component 
+            if (rb != null)
+            {
+                //apply blind to enemies
+            }
         }
     }
 
@@ -66,6 +93,9 @@ public class Throwable : MonoBehaviour
         //Visual Effect
         GameObject explosionEffect = GlobalReferences.Instance.grenadeExplosionEffect;//get effect in global references 
         Instantiate(explosionEffect, transform.position, transform.rotation);
+
+        //Play sound
+        SoundManager.Instance.throwablesChannel.PlayOneShot(SoundManager.Instance.grenadeSound);
 
         //Physical Effect
         Collider[] colliders = Physics.OverlapSphere(transform.position, damageRadius);//create a sphere shape that detect colliders(house, wall, enemy...), the size of the sphere is "damageRadis"

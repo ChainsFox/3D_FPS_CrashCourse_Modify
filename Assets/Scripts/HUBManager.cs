@@ -31,6 +31,7 @@ public class HUBManager : MonoBehaviour
     public TextMeshProUGUI tacticalAmountUI;
 
     public Sprite emptySlot;
+    public Sprite greySlot;
 
     public GameObject middledDot;
 
@@ -81,6 +82,15 @@ public class HUBManager : MonoBehaviour
 
         }
 
+        if(WeaponManager.Instance.lethalsCount <= 0)
+        {
+            lethalUI.sprite = greySlot; 
+        }
+        if (WeaponManager.Instance.tacticalCount <= 0)
+        {
+            tactialUI.sprite = greySlot;
+        }
+
 
     }
 
@@ -124,16 +134,27 @@ public class HUBManager : MonoBehaviour
         return null; //this will never happen but we need to return something
     }
 
-    internal void UpdateThrowables(Throwable.ThrowableType throwable)
+    internal void UpdateThrowablesUI() //update all the available ui 
     {
-        switch(throwable)
+        lethalAmountUI.text = $"{WeaponManager.Instance.lethalsCount}";
+        tacticalAmountUI.text = $"{WeaponManager.Instance.tacticalCount}";
+
+        switch (WeaponManager.Instance.equippedLethalType)
         {
             case Throwable.ThrowableType.Grenade:
-                lethalAmountUI.text = $"{WeaponManager.Instance.grenades}"; //update grenade amount for ui
                 lethalUI.sprite = Resources.Load<GameObject>("Grenade").GetComponent<SpriteRenderer>().sprite; //go in the resouces folder find the grenade sprite, and set it to the ui
                 break;
         
         
+        }
+
+        switch (WeaponManager.Instance.equippedTacticalType)
+        {
+            case Throwable.ThrowableType.Smoke_Grenade:
+                tactialUI.sprite = Resources.Load<GameObject>("Smoke_Grenade").GetComponent<SpriteRenderer>().sprite; 
+                break;
+
+
         }
 
 
