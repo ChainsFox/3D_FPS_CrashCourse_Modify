@@ -72,6 +72,7 @@ public class Weapon : MonoBehaviour
 
     private void Awake()
     {
+
         readyToShoot = true;
         burstBulletsLeft = bulletsPerBurst;
         animator = GetComponent<Animator>();
@@ -86,7 +87,15 @@ public class Weapon : MonoBehaviour
     {
         if (isActiveWeapon)
         {
-            if(Input.GetMouseButtonDown(1))
+            //gameObject.layer = LayerMask.NameToLayer("WeaponRender");
+            //foreach (Transform child in transform)
+            //{
+            //    child.gameObject.layer = LayerMask.NameToLayer("WeaponRender"); //if the weapon is active, then it will be on this layerk
+            //}
+            int weaponLayer = LayerMask.NameToLayer("WeaponRender");
+            SetLayerRecursively(transform, weaponLayer);
+
+            if (Input.GetMouseButtonDown(1))
             {
                 EnterADS();
             }
@@ -123,6 +132,7 @@ public class Weapon : MonoBehaviour
             {
                 Reload();
             }
+         
 
             //if you want to automatically reload when the magazine is empty - automatic reload is bugging with the new magazine system
             //if (readyToShoot && !isShooting && !isReloading && bulletsLeft <= 0)
@@ -140,7 +150,21 @@ public class Weapon : MonoBehaviour
             //}
 
         }
+        else
+        {
+            int defaultLayer = LayerMask.NameToLayer("Default");
+            SetLayerRecursively(transform, defaultLayer);
+        }
 
+    }
+
+    void SetLayerRecursively(Transform obj, int layer)
+    {
+        obj.gameObject.layer = layer;
+        foreach (Transform child in obj)
+        {
+            SetLayerRecursively(child, layer);
+        }
     }
 
     private void EnterADS()
