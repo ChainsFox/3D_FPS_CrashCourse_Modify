@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public int bulletDamage;
+
     private void OnCollisionEnter(Collision objectWeHit)
     {
         if (objectWeHit.gameObject.CompareTag("Target"))
@@ -24,6 +26,13 @@ public class Bullet : MonoBehaviour
         {
             print("hit a breakable object!");
             objectWeHit.gameObject.GetComponent<BreakableObject>().Shatter2();
+        }
+
+        if (objectWeHit.gameObject.CompareTag("Zombie"))
+        {
+            print("hit a breakable object!");
+            objectWeHit.gameObject.GetComponent<Zombie>().TakeDamage(bulletDamage);
+            Destroy(gameObject);
         }
 
 
