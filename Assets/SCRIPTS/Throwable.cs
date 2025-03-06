@@ -8,6 +8,7 @@ public class Throwable : MonoBehaviour
     [SerializeField] float delay = 3f;
     [SerializeField] float damageRadius = 20f;
     [SerializeField] float explosionForce = 1200f;
+    [SerializeField] int grenadeDamage = 100;
 
     float countDown;
 
@@ -106,8 +107,12 @@ public class Throwable : MonoBehaviour
             {
                 rb.AddExplosionForce(explosionForce, transform.position, damageRadius);
             }
+            if(objectInRange.GetComponent<Enemy>())
+            {
+                objectInRange.GetComponent<Enemy>().TakeDamage(grenadeDamage);
+            }
         }
 
-        //also apply damage to enemy over here
+        
     }
 }

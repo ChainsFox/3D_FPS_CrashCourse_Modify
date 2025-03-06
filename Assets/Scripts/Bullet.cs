@@ -28,10 +28,10 @@ public class Bullet : MonoBehaviour
             objectWeHit.gameObject.GetComponent<BreakableObject>().Shatter2();
         }
 
-        if (objectWeHit.gameObject.CompareTag("Zombie"))
+        if (objectWeHit.gameObject.CompareTag("Enemy"))
         {
             print("hit a breakable object!");
-            objectWeHit.gameObject.GetComponent<Zombie>().TakeDamage(bulletDamage);
+            objectWeHit.gameObject.GetComponent<Enemy>().TakeDamage(bulletDamage);
             Destroy(gameObject);
         }
 

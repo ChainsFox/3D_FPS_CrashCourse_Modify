@@ -8,6 +8,8 @@ TagManager:
   - Wall
   - BreakableObject
   - Zombie
+  - Enemy
+  - Waypoints
   layers:
   - Default
   - TransparentFX

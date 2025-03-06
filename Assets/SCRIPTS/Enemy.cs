@@ -1,9 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.AI;
 
-public class Zombie : MonoBehaviour
+public class Enemy : MonoBehaviour
 {
     [SerializeField] private int HP = 100;
     private Animator animator;
@@ -21,24 +22,19 @@ public class Zombie : MonoBehaviour
 
         if(HP<=0)
         {
-            animator.SetTrigger("DIE");
-            Destroy(gameObject);
+            int randomValue = Random.Range(0, 2);// 0 or 1
+            if(randomValue == 1)
+            {
+                animator.SetTrigger("DIE1");
+            }
+            else
+            {
+                animator.SetTrigger("DIE2");
+            }
         }
         else
         {
             animator.SetTrigger("DAMAGE");
-        }
-    }
-
-    private void Update()
-    {
-        if(navAgent.velocity.magnitude > 0.1f) //moving
-        {
-            animator.SetBool("isWalking", true);    
-        }
-        else
-        {
-            animator.SetBool("isWalking", false);
         }
     }
 
