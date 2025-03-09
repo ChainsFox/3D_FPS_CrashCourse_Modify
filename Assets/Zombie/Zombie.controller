@@ -73,7 +73,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Attack_State
-  m_Speed: 1
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -751724736834414049}
@@ -563,7 +563,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Patrolling_State
-  m_Speed: 2
+  m_Speed: 1.5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -8844322659411866076}
@@ -623,4 +623,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   patrollingTime: 10
   detectionArea: 18
-  patrolSpped: 2
+  patrolSpped: 1.5

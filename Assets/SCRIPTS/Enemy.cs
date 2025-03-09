@@ -38,4 +38,17 @@ public class Enemy : MonoBehaviour
         }
     }
 
+
+    private void OnDrawGizmos() //visual indicator for different state of the zombie
+    {
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireSphere(transform.position, 2.5f); //attacking & stop attacking
+
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, 18f); //detection(start chasing)
+
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(transform.position, 21f); //stop chasing
+    }
+
 }

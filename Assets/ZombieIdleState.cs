@@ -22,7 +22,7 @@ public class ZombieIdleState : StateMachineBehaviour
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         //transition into the patrolling state
-        timer += Time.deltaTime;
+        timer += Time.deltaTime;    
         if(timer > idleTime)
         {
             animator.SetBool("isPatrolling", true);
