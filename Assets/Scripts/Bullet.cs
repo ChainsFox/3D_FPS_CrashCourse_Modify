@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -30,12 +31,29 @@ public class Bullet : MonoBehaviour
 
         if (objectWeHit.gameObject.CompareTag("Enemy"))
         {
-            print("hit a breakable object!");
-            objectWeHit.gameObject.GetComponent<Enemy>().TakeDamage(bulletDamage);
+            print("hit a enemy");
+
+            if (objectWeHit.gameObject.GetComponent<Enemy>().isDead == false)
+            {
+                objectWeHit.gameObject.GetComponent<Enemy>().TakeDamage(bulletDamage);
+            }
+              
+            CreateBloodSprayEffect(objectWeHit);
             Destroy(gameObject);
         }
 
 
+    }
+
+    private void CreateBloodSprayEffect(Collision objectWeHit)
+    {
+        ContactPoint contact = objectWeHit.contacts[0]; //first point that our bullet will hit
+
+        GameObject bloodSprayPrefab = Instantiate(GlobalReferences.Instance.bloodSprayEffect, //the thing we want to instantiate
+            contact.point, //position we instantiate it at 
+            Quaternion.LookRotation(contact.normal)); //rotation that we hit the actual target
+
+        bloodSprayPrefab.transform.SetParent(objectWeHit.gameObject.transform); //make the thing that we hit a parent of this bullet hole effect
     }
 
     void createBulletImpactEffect(Collision objectWeHit)

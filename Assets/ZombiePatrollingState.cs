@@ -41,8 +41,15 @@ public class ZombiePatrollingState : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (SoundManager.Instance.zombieChannel.isPlaying == false) //check if the sound is already played, and if is not then we play it(so that it wont overlap sounds)
+        {
+            SoundManager.Instance.zombieChannel.clip = SoundManager.Instance.zombieWalking;
+            SoundManager.Instance.zombieChannel.PlayDelayed(1f);
+        }
+
+
         //check if agent arrived at the waypoint, move on to next waypoint
-        if(agent.remainingDistance <= agent.stoppingDistance)
+        if (agent.remainingDistance <= agent.stoppingDistance)
         {
             agent.SetDestination(waypointsList[Random.Range(0, waypointsList.Count)].position);
         }
@@ -67,5 +74,7 @@ public class ZombiePatrollingState : StateMachineBehaviour
     {
         //stop the agent
         agent.SetDestination(agent.transform.position);
+        SoundManager.Instance.zombieChannel.Stop();
+
     }
 }

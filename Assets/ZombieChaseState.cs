@@ -24,6 +24,12 @@ public class ZombieChaseState : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (SoundManager.Instance.zombieChannel.isPlaying == false) //check if the sound is already played, and if is not then we play it(so that it wont overlap sounds)
+        {
+            SoundManager.Instance.zombieChannel.clip = SoundManager.Instance.zombieChase;
+            
+        }
+
         agent.SetDestination(player.position);//move zombie to the position of the player - chase the player
         animator.transform.LookAt(player);//face the player
 
@@ -48,5 +54,6 @@ public class ZombieChaseState : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         agent.SetDestination(animator.transform.position);
+        SoundManager.Instance.zombieChannel.Stop();
     }
 }

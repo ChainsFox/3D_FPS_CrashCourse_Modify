@@ -21,6 +21,11 @@ public class ZombieAttackState : StateMachineBehaviour
 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (SoundManager.Instance.zombieChannel.isPlaying == false) //check if the sound is already played, and if is not then we play it(so that it wont overlap sounds)
+        {
+            SoundManager.Instance.zombieChannel.clip = SoundManager.Instance.zombieAttack;
+        }
+
         LookAtPlayer();
 
         //check if the agent should stop attacking
@@ -43,4 +48,8 @@ public class ZombieAttackState : StateMachineBehaviour
         agent.transform.rotation = Quaternion.Euler(0, yRotation, 0);//?
     }
 
+    public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        SoundManager.Instance.zombieChannel.Stop();
+    }
 }
