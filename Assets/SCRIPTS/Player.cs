@@ -36,12 +36,18 @@ public class Player : MonoBehaviour
             print("player hit");
             StartCoroutine(BloodyScreenEffect());
             playerHealthUI.text = $"Health: {HP}";
+            SoundManager.Instance.playerChannel.PlayOneShot(SoundManager.Instance.playerHurt);
 
         }
     }
 
     private void PlayerDead()
     {
+        SoundManager.Instance.playerChannel.PlayOneShot(SoundManager.Instance.playerDie);
+
+        SoundManager.Instance.playerChannel.clip = SoundManager.Instance.gameOverMusic;
+        SoundManager.Instance.playerChannel.PlayDelayed(1f);
+
         GetComponent<MouseMovement>().enabled = false;
         GetComponent<PlayerMovement>().enabled = false;
 
