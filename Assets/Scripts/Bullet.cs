@@ -11,27 +11,27 @@ public class Bullet : MonoBehaviour
     {
         if (objectWeHit.gameObject.CompareTag("Target"))
         {
-            print("hit " + objectWeHit.gameObject.name + "!");
+            //print("hit " + objectWeHit.gameObject.name + "!");
             createBulletImpactEffect(objectWeHit);
             Destroy(gameObject);
         }
 
         if (objectWeHit.gameObject.CompareTag("Wall"))
         {
-            print("hit a wall!");
+            //print("hit a wall!");
             createBulletImpactEffect(objectWeHit);
             Destroy(gameObject);
         }
 
         if (objectWeHit.gameObject.CompareTag("BreakableObject"))
         {
-            print("hit a breakable object!");
+            //print("hit a breakable object!");
             objectWeHit.gameObject.GetComponent<BreakableObject>().Shatter2();
         }
 
         if (objectWeHit.gameObject.CompareTag("Enemy"))
         {
-            print("hit a enemy");
+            //print("hit a enemy");
 
             if (objectWeHit.gameObject.GetComponent<Enemy>().isDead == false)
             {

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Principal;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -23,6 +24,11 @@ public class ZombieSpawnController : MonoBehaviour
     public List<Enemy> currentZombiesAlive;
     public GameObject zombiePrefab;
 
+    public TextMeshProUGUI waveOverUI;
+    public TextMeshProUGUI cooldownCounterUI;
+    public TextMeshProUGUI currentWaveUI;
+
+
     private void Start()
     {
         currentZombiesPerWave = initialZombiesPerWave;
@@ -35,6 +41,7 @@ public class ZombieSpawnController : MonoBehaviour
         currentZombiesAlive.Clear();
 
         currentWave++;
+        currentWaveUI.text = "Wave: " + currentWave.ToString();
 
         StartCoroutine(SpawnWave());
     }
@@ -74,7 +81,7 @@ public class ZombieSpawnController : MonoBehaviour
         }
 
         //actually remove all dead zombies
-        foreach (Enemy zombie in currentZombiesAlive)
+        foreach (Enemy zombie in zombiesToRemove)
         {
             currentZombiesAlive.Remove(zombie);
         }
@@ -98,17 +105,17 @@ public class ZombieSpawnController : MonoBehaviour
             cooldownCounter = waveCooldown;
         }
 
-
+        cooldownCounterUI.text = cooldownCounter.ToString("F0");
     }
 
     private IEnumerator WaveCooldown()
     {
         inCooldown = true;
-
+        waveOverUI.gameObject.SetActive(true);
         yield return new WaitForSeconds(waveCooldown);
 
         inCooldown = false;
-
+        waveOverUI.gameObject.SetActive(false);
         //currentZombiesPerWave *= 2; //multiply the wave
         currentZombiesPerWave += 1; //add to the wave
         StartNextWave();
