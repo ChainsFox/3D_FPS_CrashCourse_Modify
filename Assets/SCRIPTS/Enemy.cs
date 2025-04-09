@@ -28,10 +28,12 @@ public class Enemy : MonoBehaviour
             if(randomValue == 1)
             {
                 animator.SetTrigger("DIE1");
+                Destroy(gameObject, 2f);
             }
             else
             {
                 animator.SetTrigger("DIE2");
+                Destroy(gameObject, 2f);
             }
             isDead = true;
             SoundManager.Instance.zombieChannel2.PlayOneShot(SoundManager.Instance.zombieDeath);

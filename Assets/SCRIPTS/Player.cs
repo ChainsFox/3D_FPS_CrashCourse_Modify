@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class Player : MonoBehaviour
@@ -63,7 +64,23 @@ public class Player : MonoBehaviour
     {
         yield return new WaitForSeconds(3.5f);
         gameOverUI.gameObject.SetActive(true);
-    
+
+        int waveSurvived = GlobalReferences.Instance.waveNumber;
+
+        if(waveSurvived-1 > SaveLoadManager.Instance.LoadHighScore())
+        {
+            SaveLoadManager.Instance.SaveHighScore(waveSurvived - 1); //we -1 because it is the last wave that the player survived - need to load the main menu scene first
+
+        }
+
+        StartCoroutine(ReturnToMainMenu());
+
+    }
+
+    private IEnumerator ReturnToMainMenu()
+    {
+        yield return new WaitForSeconds(4f);
+        SceneManager.LoadScene("MainMenu");
     }
 
     private IEnumerator BloodyScreenEffect()
