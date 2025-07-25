@@ -14,7 +14,7 @@ public class Grappling : MonoBehaviour
     [Header("Grappling")]
     public float maxGrappleDistance;
     public float grappleDelayTime;
-    //public float overshootYAxis;
+    public float overshootYAxis;
 
     private Vector3 grapplePoint;
 
@@ -23,13 +23,13 @@ public class Grappling : MonoBehaviour
     private float grapplingCdTimer;
 
     [Header("Input")]
-    public KeyCode grappleKey = KeyCode.Mouse1;
+    public KeyCode grappleKey = KeyCode.LeftShift;
 
     private bool grappling;
 
     private void Start()
     {
-        pm = GetComponent<PlayerMovement >();
+        pm = GetComponent<PlayerMovement>();
     }
 
     private void Update()
@@ -52,7 +52,7 @@ public class Grappling : MonoBehaviour
 
         grappling = true;
 
-        pm.freeze = true;
+        //pm.freeze = true;
 
         RaycastHit hit;
         if (Physics.Raycast(cam.position, cam.forward, out hit, maxGrappleDistance, whatIsGrappleable))
@@ -76,21 +76,21 @@ public class Grappling : MonoBehaviour
     {
         //pm.freeze = false;
 
-        //Vector3 lowestPoint = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
+        Vector3 lowestPoint = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
 
-        //float grapplePointRelativeYPos = grapplePoint.y - lowestPoint.y;
-        //float highestPointOnArc = grapplePointRelativeYPos + overshootYAxis;
+        float grapplePointRelativeYPos = grapplePoint.y - lowestPoint.y;
+        float highestPointOnArc = grapplePointRelativeYPos + overshootYAxis;
 
-        //if (grapplePointRelativeYPos < 0) highestPointOnArc = overshootYAxis;
+        if (grapplePointRelativeYPos < 0) highestPointOnArc = overshootYAxis;
 
-        ////pm.JumpToPosition(grapplePoint, highestPointOnArc);
+        pm.JumpToPosition(grapplePoint, highestPointOnArc);
 
-        //Invoke(nameof(StopGrapple), 1f);
+        Invoke(nameof(StopGrapple), 1f);
     }
 
     public void StopGrapple()
     {
-        pm.freeze = false;
+        //pm.freeze = false;
 
         grappling = false;
 

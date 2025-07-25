@@ -23,8 +23,8 @@ public class PlayerMovement : MonoBehaviour
     private Vector3 lastPosition = new Vector3(0f,0f,0f);
 
     //GrapplingHook 
-    public bool freeze;
-    public bool activeGrapple;
+    //public bool freeze;
+    //public bool activeGrapple;
 
 
     void Start()
@@ -35,27 +35,23 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        if (activeGrapple) return; //grapple freeze
+        //if (activeGrapple) return; //grapple freeze
 
         //ground check 
         isGrounded = Physics.CheckSphere(groundCheck.position, groundDistance, groundMask); //create a sphere below the player with groundDistance height that will check if we touch the ground
         
         //resetting the default velocity
-        if(isGrounded && velocity.y < 0 && !activeGrapple)
+        if(isGrounded && velocity.y < 0) //&& !activeGrapple
         {
             velocity.y = -2f; //if we jump and land back on the ground, it will reset the velocity
         }
 
         //grappling
-        if (freeze)
-        {
-            speed = 0f;
-            velocity = Vector3.zero;
-        }
-        else
-        {
-            speed = 12f;
-        }
+        //if (freeze)
+        //{
+        //    speed = 0f;
+        //    velocity = Vector3.zero;
+        //}
 
         //getting the inputs
         float x = Input.GetAxis("Horizontal");
@@ -94,12 +90,14 @@ public class PlayerMovement : MonoBehaviour
     
     }
     //GrapplingHook:
+    //private bool enableMovementOnNextTouch;
+
     public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
     {
-        activeGrapple = true;
+        //activeGrapple = true;
 
         velocityToSet = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight);
-        Invoke(nameof(SetVelocity), 0.1f);
+        //Invoke(nameof(SetVelocity), 0.1f);
 
         //Invoke(nameof(ResetRestrictions), 3f);
 
@@ -110,11 +108,26 @@ public class PlayerMovement : MonoBehaviour
     private void SetVelocity()
     {
         //enableMovementOnNextTouch = true;
-        //rb.velocity = velocityToSet;
         velocity = velocityToSet;
+        //rb.velocity = velocityToSet;
 
-        //cam.DoFov(grappleFov);
+
     }
+
+    //public void ResetRestrictions()
+    //{
+    //    activeGrapple = false; 
+    //}
+
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if(enableMovementOnNextTouch)
+    //    {
+    //        enableMovementOnNextTouch = false;
+    //        ResetRestrictions();
+    //        GetComponent<Grappling>().StopGrapple();
+    //    }
+    //}
 
     public Vector3 CalculateJumpVelocity(Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)
     {
