@@ -5,7 +5,7 @@ using UnityEngine;
 public class Grappling : MonoBehaviour
 {
     [Header("References")]
-    private PlayerMovement pm;
+    private PlayerMovement1 pm;
     public Transform cam;
     public Transform gunTip;
     public LayerMask whatIsGrappleable;
@@ -29,7 +29,7 @@ public class Grappling : MonoBehaviour
 
     private void Start()
     {
-        pm = GetComponent<PlayerMovement>();
+        pm = GetComponent<PlayerMovement1>();
     }
 
     private void Update()
@@ -42,8 +42,8 @@ public class Grappling : MonoBehaviour
 
     private void LateUpdate()
     {
-         if (grappling)
-            lr.SetPosition(0, gunTip.position); //update the start position to the guntip position
+        if (grappling)
+            lr.SetPosition(0, gunTip.position);
     }
 
     private void StartGrapple()
@@ -52,16 +52,16 @@ public class Grappling : MonoBehaviour
 
         grappling = true;
 
-        //pm.freeze = true;
+        pm.freeze = true;
 
         RaycastHit hit;
         if (Physics.Raycast(cam.position, cam.forward, out hit, maxGrappleDistance, whatIsGrappleable))
         {
-            grapplePoint = hit.point; //if the ray hit something, it will be stored in this variable and invoke the "ExecuteGrapple" function below with delay
+            grapplePoint = hit.point;
 
             Invoke(nameof(ExecuteGrapple), grappleDelayTime);
         }
-        else //it will go max distance if it does not hit anything, and we invoke stop grapple funciton
+        else
         {
             grapplePoint = cam.position + cam.forward * maxGrappleDistance;
 
@@ -74,7 +74,7 @@ public class Grappling : MonoBehaviour
 
     private void ExecuteGrapple()
     {
-        //pm.freeze = false;
+        pm.freeze = false;
 
         Vector3 lowestPoint = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
 
@@ -90,7 +90,7 @@ public class Grappling : MonoBehaviour
 
     public void StopGrapple()
     {
-        //pm.freeze = false;
+        pm.freeze = false;
 
         grappling = false;
 

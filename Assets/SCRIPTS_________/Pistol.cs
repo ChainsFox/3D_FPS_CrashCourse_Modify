@@ -1,13 +1,11 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 
-public class Weapon : MonoBehaviour
+public class Pistol : MonoBehaviour
 {
     public bool isActiveWeapon;
-    public int weaponDamage;    
+    public int weaponDamage;
 
     //Shooting
     [Header("Shooting")]
@@ -59,15 +57,6 @@ public class Weapon : MonoBehaviour
         Auto
     }
 
-    public enum WeaponModel
-    {
-        M1911,
-        M4
-    }
-
-    public WeaponModel thisWeaponModel;
-
-
 
     public ShootingMode currentShootingMode;
 
@@ -86,26 +75,12 @@ public class Weapon : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isActiveWeapon)
-        {
-            //gameObject.layer = LayerMask.NameToLayer("WeaponRender");
-            //foreach (Transform child in transform)
-            //{
-            //    child.gameObject.layer = LayerMask.NameToLayer("WeaponRender"); //if the weapon is active, then it will be on this layerk
-            //}
-            int weaponLayer = LayerMask.NameToLayer("WeaponRender");
-            SetLayerRecursively(transform, weaponLayer);
+        
 
-            if (Input.GetMouseButtonDown(1))
-            {
-                EnterADS();
-            }
-            if (Input.GetMouseButtonUp(1))
-            {
-                ExitADS();
-            }
+            //int weaponLayer = LayerMask.NameToLayer("WeaponRender");
+            //SetLayerRecursively(transform, weaponLayer);
 
-            GetComponent<Outline>().enabled = false;
+
 
             if (bulletsLeft == 0 && isShooting) //when try to shoot but no ammo
             {
@@ -129,11 +104,11 @@ public class Weapon : MonoBehaviour
                 FireWeapon();
             }
 
-            if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && isReloading == false && WeaponManager.Instance.CheckAmmoLeftFor(thisWeaponModel) > 0)
+            if (Input.GetKeyDown(KeyCode.R) && bulletsLeft < magazineSize && isReloading == false)
             {
                 Reload();
             }
-         
+
 
             //if you want to automatically reload when the magazine is empty - automatic reload is bugging with the new magazine system
             //if (readyToShoot && !isShooting && !isReloading && bulletsLeft <= 0)
@@ -150,39 +125,20 @@ public class Weapon : MonoBehaviour
             //    HUBManager.Instance.ammoDisplay.text = $"{bulletsLeft / bulletsPerBurst}/{magazineSize / bulletsPerBurst}";
             //}
 
-        }
-        else
-        {
-            int defaultLayer = LayerMask.NameToLayer("Default");
-            SetLayerRecursively(transform, defaultLayer);
-        }
+        
+
 
     }
 
-    void SetLayerRecursively(Transform obj, int layer)
-    {
-        obj.gameObject.layer = layer;
-        foreach (Transform child in obj)
-        {
-            SetLayerRecursively(child, layer);
-        }
-    }
+    //void SetLayerRecursively(Transform obj, int layer)
+    //{
+    //    obj.gameObject.layer = layer;
+    //    foreach (Transform child in obj)
+    //    {
+    //        SetLayerRecursively(child, layer);
+    //    }
+    //}
 
-    private void EnterADS()
-    {
-        animator.SetTrigger("enterADS");
-        isADS = true;
-        HUBManager.Instance.middledDot.SetActive(false);
-        spreadIntensity = adsSpreadIntensity;
-    }
-
-    private void ExitADS()
-    {
-        animator.SetTrigger("exitADS");
-        isADS = false;
-        HUBManager.Instance.middledDot.SetActive(true);
-        spreadIntensity = hipSpreadIntensity;
-    }
 
 
     private void FireWeapon()
@@ -191,7 +147,7 @@ public class Weapon : MonoBehaviour
 
         muzzleEffect.GetComponent<ParticleSystem>().Play();
 
-        if(isADS)
+        if (isADS)
         {
             animator.SetTrigger("RECOIL_ADS");
         }
@@ -200,8 +156,7 @@ public class Weapon : MonoBehaviour
             animator.SetTrigger("RECOIL");
         }
 
-        //SoundManager.Instance.shootingSound_M1911.Play();
-        SoundManager.Instance.PlayShootingSound(thisWeaponModel);
+        SoundManager.Instance.PlayShootingSound(Weapon.WeaponModel.M1911);
 
         readyToShoot = false; //cant spam shoot if the first shot was not finished
 
@@ -219,7 +174,7 @@ public class Weapon : MonoBehaviour
         StartCoroutine(DestroyBulletAfterTime(bullet, bulletPrefabLifeTime)); //destroy after delay
 
         //checking if we are done shooting
-        if(allowReset)
+        if (allowReset)
         {
             Invoke("ResetShot", shootingDelay);
             allowReset = false;
@@ -235,27 +190,27 @@ public class Weapon : MonoBehaviour
 
     private void Reload()
     {
-        //SoundManager.Instance.reloadSound_M1911.Play();
-        SoundManager.Instance.PlayReloadSound(thisWeaponModel);
+        SoundManager.Instance.PlayReloadSound(Weapon.WeaponModel.M1911);
 
         animator.SetTrigger("RELOAD");
         isReloading = true;
         Invoke("ReloadCompleted", reloadTime);
+
     }
 
     private void ReloadCompleted()
     {
         //check if we have spare ammo or not and add it into the magazine to shoot
-        if(WeaponManager.Instance.CheckAmmoLeftFor(thisWeaponModel) > magazineSize)
-        {
-            bulletsLeft = magazineSize;
-            WeaponManager.Instance.DecreaseTotalAmmo(bulletsLeft, thisWeaponModel);
-        }
-        else
-        {
-            bulletsLeft = WeaponManager.Instance.CheckAmmoLeftFor(thisWeaponModel);
-            WeaponManager.Instance.DecreaseTotalAmmo(bulletsLeft, thisWeaponModel);
-        }
+        //if (WeaponManager.Instance.CheckAmmoLeftFor(Weapon.WeaponModel.M1911) > magazineSize)
+        //{
+        //    bulletsLeft = magazineSize;
+        //    WeaponManager.Instance.DecreaseTotalAmmo(bulletsLeft, Weapon.WeaponModel.M1911);
+        //}
+        //else
+        //{
+        //    bulletsLeft = WeaponManager.Instance.CheckAmmoLeftFor(Weapon.WeaponModel.M1911);
+        //    WeaponManager.Instance.DecreaseTotalAmmo(bulletsLeft, Weapon.WeaponModel.M1911);
+        //}
 
         isReloading = false;
     }
