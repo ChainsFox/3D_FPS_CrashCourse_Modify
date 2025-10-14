@@ -14,6 +14,7 @@ public class PlayerMovement1 : MonoBehaviour
     public float airMultiplier;
     public bool readyToJump;
 
+
     [HideInInspector] public float walkSpeed;
     [HideInInspector] public float sprintSpeed;
 
@@ -35,8 +36,13 @@ public class PlayerMovement1 : MonoBehaviour
     Rigidbody rb;
 
     //GRAPPLE
+    [Header("Grappling")]
     public bool freeze;
     public bool activeGrapple;
+
+    [Header("Swinging")]
+    public float swingSpeed = 15;
+    public bool swinging;
 
     private void Start()
     {
@@ -49,7 +55,7 @@ public class PlayerMovement1 : MonoBehaviour
     private void Update()
     {
         if (activeGrapple) return;
-
+        if (swinging) return;
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
 
@@ -151,6 +157,7 @@ public class PlayerMovement1 : MonoBehaviour
     public void ResetRestrictions()
     {
         activeGrapple = false;
+        swinging = false;
     }
 
     private void OnCollisionEnter(Collision collision)
