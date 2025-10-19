@@ -36,9 +36,9 @@ public class PlayerMovement1 : MonoBehaviour
     Rigidbody rb;
 
     //GRAPPLE
-    [Header("Grappling")]
-    public bool freeze;
-    public bool activeGrapple;
+    //[Header("Grappling")]
+    //public bool freeze;
+    //public bool activeGrapple;
 
     [Header("Swinging")]
     public float swingSpeed = 15;
@@ -47,14 +47,14 @@ public class PlayerMovement1 : MonoBehaviour
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
-        rb.freezeRotation = true;
+        //rb.freezeRotation = true;
 
         readyToJump = true;
     }
 
     private void Update()
     {
-        if (activeGrapple) return;
+        //if (activeGrapple) return;
         if (swinging) return;
         // ground check
         grounded = Physics.Raycast(transform.position, Vector3.down, playerHeight * 0.5f + 0.3f, whatIsGround);
@@ -68,11 +68,11 @@ public class PlayerMovement1 : MonoBehaviour
         else
             rb.drag = 0;
 
-        //GRAPPLE:
-        if(freeze)
-        {
-            rb.velocity = Vector3.zero;
-        }
+        ////GRAPPLE:
+        //if(freeze)
+        //{
+        //    rb.velocity = Vector3.zero;
+        //}
     }
 
     private void FixedUpdate()
@@ -135,52 +135,52 @@ public class PlayerMovement1 : MonoBehaviour
     }
     //GRAPPLE:
 
-    private bool enableMovementOnNextTouch;
-    public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
-    {
-        activeGrapple = true;
+    //private bool enableMovementOnNextTouch;
+    //public void JumpToPosition(Vector3 targetPosition, float trajectoryHeight)
+    //{
+    //    activeGrapple = true;
 
-        velocityToSet = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight);
-        Invoke(nameof(SetVelocity), 0.1f);
+    //    velocityToSet = CalculateJumpVelocity(transform.position, targetPosition, trajectoryHeight);
+    //    Invoke(nameof(SetVelocity), 0.1f);
 
-        Invoke(nameof(ResetRestrictions), 3f);
-    }
+    //    Invoke(nameof(ResetRestrictions), 3f);
+    //}
 
-    private Vector3 velocityToSet;
-    private void SetVelocity()
-    {
-        enableMovementOnNextTouch = true;
-        rb.velocity = velocityToSet;
+    //private Vector3 velocityToSet;
+    //private void SetVelocity()
+    //{
+    //    enableMovementOnNextTouch = true;
+    //    rb.velocity = velocityToSet;
 
-    }
+    //}
 
     public void ResetRestrictions()
     {
-        activeGrapple = false;
+        //activeGrapple = false;
         swinging = false;
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (enableMovementOnNextTouch)
-        {
-            enableMovementOnNextTouch = false;
-            ResetRestrictions();
+    //private void OnCollisionEnter(Collision collision)
+    //{
+    //    if (enableMovementOnNextTouch)
+    //    {
+    //        enableMovementOnNextTouch = false;
+    //        ResetRestrictions();
 
-            GetComponent<Grappling>().StopGrapple();
-        }
-    }
+    //        GetComponent<Grappling>().StopGrapple();
+    //    }
+    //}
 
-    public Vector3 CalculateJumpVelocity(Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)
-    {
-        float gravity = Physics.gravity.y;
-        float displacementY = endPoint.y - startPoint.y;
-        Vector3 displacementXZ = new Vector3(endPoint.x - startPoint.x, 0f, endPoint.z - startPoint.z);
+    //public Vector3 CalculateJumpVelocity(Vector3 startPoint, Vector3 endPoint, float trajectoryHeight)
+    //{
+    //    float gravity = Physics.gravity.y;
+    //    float displacementY = endPoint.y - startPoint.y;
+    //    Vector3 displacementXZ = new Vector3(endPoint.x - startPoint.x, 0f, endPoint.z - startPoint.z);
 
-        Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * trajectoryHeight);
-        Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / gravity)
-            + Mathf.Sqrt(2 * (displacementY - trajectoryHeight) / gravity));
+    //    Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2 * gravity * trajectoryHeight);
+    //    Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * trajectoryHeight / gravity)
+    //        + Mathf.Sqrt(2 * (displacementY - trajectoryHeight) / gravity));
 
-        return velocityXZ + velocityY;
-    }
+    //    return velocityXZ + velocityY;
+    //}
 }
